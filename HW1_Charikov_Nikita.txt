@@ -1,0 +1,279 @@
+№1  UNSIGNED:
+
+note that the maximal length of 6-bit binary number is 2^6 - 1 = 63
+then:
+0 -> 0 / 2 = 0 (remainder is 0) => 000000
+
+13 -> 13 / 2 = 6 (remainder is 1)
+6 / 2 = 3 (remainder is 0)
+3 / 2 = 1 (remainder is 1)
+1 / 2 = 0 (remainder is 1) => 001101 (don't forget to add extra 0)
+
+24 -> 24 / 2 = 12 (remainder is 0)
+12 / 2 = 6 (remainder is 0)
+6 / 2 = 3 (remainder is 0)
+3 / 2 = 1 (remainder is 1)
+1 / 2 = 0 (remainder is 1) => 011000 (don't forget to add extra 0)
+
+63 -> 63 / 2 = 31 (remainder is 1)
+31 / 2 = 15 (remainder is 1)
+15 / 2 = 7 (remainder is 1)
+7 / 2 = 3 (remainder is 1)
+3 / 2 = 1 (remainder is 1)
+1 / 2 = 0 (remainder is 1) => 111111
+
+SIGNED:
+
+16 is positive, then:
+
+16 -> 16 / 2 = 8 (remainder is 0)
+8 / 2 = 4 (remainder is 0)
+4 / 2 = 2 (remainder is 0)
+2 / 2 = 1 (remainder is 0)
+1 / 2 = 0 (remainder is 1) => 010000 (don't forget to add extra 0)
+
+
+-2 is negative, then we need to compute its absolute value, then invert the bits, then add 1.
+
+2 -> 2 / 2 = 1 (remainder is 0)
+1 / 2 = 0 (remainder is 0) => 000010 (don't forget to add extra 0) => 111101 (inversion) => 111101 + 1 = 111110
+
+31 is positive, then:
+
+31 -> 31 / 2 = 15 (remainder is 1)
+15 / 2 = 7 (remainder is 1)
+7 / 2 = 3 (remainder is 1)
+3 / 2 = 1 (remainder is 1)
+1 / 2 = 0 (remainder is 1) => 011111 (don't forget to add extra 0)
+
+-32 is negative, then we need to compute its absolute value, then invert the bits, then add 1.
+
+32 -> 32 / 2 = 16 (remainder is 0)
+16 / 2 = 8 (remainder is 0)
+8 / 2 = 4 (remainder is 0)
+4 / 2 = 2 (remainder is 0)
+2 / 2 = 1 (remainder is 0)
+1 / 2 = 0 (remainder is 1) => 100000 (don't forget to add extra 0) => 011111 (inversion) => 011111 + 1 = 100000
+
+
+№2
+
+We got two formulas:
+
+SIGNED:
+Decimal = b_5 * 2^5 + b_4 * 2^4 + b_3 * 2^3 + b_2 * 2^2 + b_1 * 2^1 + b_0 * 2^0
+UNSIGNED:
+Decimal = -b_5 * 2^5 + b_4 * 2^4 + b_3 * 2^3 + b_2 * 2^2 + b_1 * 2^1 + b_0 * 2^0
+
+000101:
+UNSIGNED:
+0 * 32 + 0 * 16 + 0 * 8 + 1 * 4 + 0 * 2 + 1 * 1 = 4 + 1 = 5
+SIGNED:
+-0 * 32 + 0 * 16 + 0 * 8 + 1 * 4 + 0 * 2 + 1 * 1 = 4 + 1 = 5
+
+101011:
+UNSIGNED:
+1 * 32 + 0 * 16 + 1 * 8 + 0 * 4 + 1 * 2 + 1 * 1 = 32 + 8 + 2 + 1 = 43
+SIGNED:
+-1 * 32 + 0 * 16 + 1 * 8 + 0 * 4 + 1 * 2 + 1 * 1 = -32 + 8 + 2 + 1 = -21
+
+111111:
+UNSIGNED:
+1 * 32 + 1 * 16 + 1 * 8 + 1 * 4 + 1 * 2 + 1 * 1 = 32 + 16 + 8 + 4 + 2 + 1 = 63
+SIGNED:
+-1 * 32 + 1 * 16 + 1 * 8 + 1 * 4 + 1 * 2 + 1 * 1 = -32 + 16 + 8 + 4 + 2 + 1 = -1
+
+100000:
+UNSIGNED:
+1 * 32 + 0 * 16 + 0 * 8 + 0 * 4 + 0 * 2 + 0 * 1 = 32
+SIGNED:
+-1 * 32 + 0 * 16 + 0 * 8 + 0 * 4 + 0 * 2 + 0 * 1 = -32
+
+
+№3
+note that the maximal length of 8-bit number is 2^8 - 1 = 255
+the algorithm is rather simple: divide number by 16, the integer part is first digit, the remainder is the second digit:
+
+7 / 16 = 0 (integer part), remainder is 7. Then: 07 or 0x07
+
+240 / 16 = 15 (integer part), remainder is 0. 15 in HEX is F. Then: F0 or 0xFO
+
+171 / 16 = 10 (integer part), remainder is 11. 11 in HEX is B, 10 in HEX is A. Then: AB or 0xAB
+
+126 / 16 = 7 (integer part), remainder is 14. 14 in HEX is E. Then: 7E or 0x7E
+
+
+№4
+For 8-bit number, each digit should be converted to 4-bit binary number. We can write the conversion:
+
+    0 = 0000
+
+    1 = 0001
+
+    2 = 0010
+
+    3 = 0011
+
+    4 = 0100
+
+    5 = 0101
+
+    6 = 0110
+
+    7 = 0111
+
+    8 = 1000
+
+    9 = 1001
+
+    A = 1010
+
+    B = 1011
+
+    C = 1100
+
+    D = 1101
+
+    E = 1110
+
+    F = 1111
+    
+Then:
+
+0x3C -> 3 is 0011, C is 1100, then: 00111100
+
+0x7E -> 7 is 0111, E is 1110, then: 01111110
+
+0xFF -> F is 1111, then: 11111111
+
+0xA5 -> A is 1010, B is 0101, then: 10100101
+
+
+№5
+Recall №1 with inversions of numbers. Let's do the same:
+
+00111100 -> 11000011 (inversion) -> 11000011 + 1 -> 11000100
+
+01111110 -> 10000001 (inversion) -> 10000001 + 1 -> 10000010
+
+11111111 -> 00000000 (inversion) -> 00000000 + 1 -> 00000001
+
+10100101 -> 01011010 (inversion) -> 01011010 + 1 -> 01011011
+
+№6
+
+Recall that:
+In Big-Endian, the highest byte is stored at the smallest memory address.
+In Little-Endian, the least significant byte is stored at the smallest memory address.
+
+We got :
+    0xDE - most significant byte
+
+    0xAD
+
+    0xBE
+
+    0xEF - least significant byte
+    
+    
+Big-Endian:
+addr + 0 -> 0xDE
+addr + 1 -> 0xAD
+addr + 2 -> 0xBE
+addr + 3 -> 0xEF
+
+Little-Endian:
+addr + 0 -> 0xEF
+addr + 1 -> 0xBE
+addr + 2 -> 0xAD
+addr + 3 -> 0xDE
+
+№7
+
+For 7:
+7 / 2 = 3 (remainder is 1)
+3 / 2 = 1 (remainder is 1)
+1 / 2 = 0 (remainder is 1) => 00111 (don't forget to add extra 0)
+
+sign-extend:
+00000111 (the highest bit is 0, thus add 0)
+
+zero-extend:
+00000111 (obviously)
+
+
+For 15:
+15 / 2 = 7 (remainder is 1)
+7 / 2 = 3 (remainder is 1)
+3 / 2 = 1 (remainder is 1)
+1 / 2 = 0 (remainder is 1) => 01111
+
+sign-extend:
+00001111 (the highest bit is 0, thus add 0)
+
+zero-extend:
+00001111 (obviously)
+
+
+For -16:
+
+-16 is negative, then:
+
+16 -> 16 / 2 = 8 (remainder is 0)
+8 / 2 = 4 (remainder is 0)
+4 / 2 = 2 (remainder is 0)
+2 / 2 = 1 (remainder is 0)
+1 / 2 = 0 (remainder is 1) => 10000 (don't forget to add extra 0) -> 01111 (inversion) -> 01111 + 1 -> 10000
+
+sign-extend:
+11110000 (the highest bit is 1, thus add 1)
+
+zero-extend:
+00010000 (obviously)
+
+For -5:
+
+-5 is negative, then:
+
+5 -> 5 / 2 = 2 (remainder is 1)
+2 / 2 = 1 (remainder is 0)
+1 / 2 = 0 (remainder is 1) => 00101 (don't forget to add extra 0) -> 11010 (inversion) -> 11010 + 1 -> 11011
+
+sign-extend:
+11111011 (the highest bit is 1, thus add 1)
+
+zero-extend:
+00011011 (obviously)
+
+№8
+
+7 = 0 * 8 + 1 * 4 + 1 * 2 + 1 * 1 -> 0111
+9 = 1 * 8 + 0 * 4 + 0 * 2 + 1 * 1 -> 1001
+
+  0111  (7)
++ 1001  (9)
+------
+ 10000  (16)
+ 
+But in 4-bits the maximal number is 15 (1111). Then overflow, then 0000
+
+4 = 0 * (-8) * 1 * 4 + 0 * 2 + 0 * 1 -> 0100
+
+For -5:
+
+-5 is negative, then:
+
+5 -> 5 / 2 = 2 (remainder is 1)
+2 / 2 = 1 (remainder is 0)
+1 / 2 = 0 (remainder is 1) => 0101 (don't forget to add extra 0) -> 1010 (inversion) -> 1010 + 1 -> 1011
+
+  0100  (4)
++ 1011  (-5)
+------
+  1111  
+  
+the highest bit is 1 (the number is negative).
+
+Then 1111 -> 0000 (inversion) -> 0001 (absolute value is 1)
+
+Then 1111 (is -1)
